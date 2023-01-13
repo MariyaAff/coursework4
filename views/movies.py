@@ -15,10 +15,15 @@ class MoviesView(Resource):
         director = request.args.get("director_id")
         genre = request.args.get("genre_id")
         year = request.args.get("year")
+        status = request.args.get("status")
+        page = request.args.get("page")
+
         filters = {
             "director_id": director,
             "genre_id": genre,
             "year": year,
+            "status": status,
+            "page": page,
         }
         all_movies = movie_service.get_all(filters)
         res = MovieSchema(many=True).dump(all_movies)

@@ -8,7 +8,12 @@ class DirectorDAO:
     def get_one(self, bid):
         return self.session.query(Director).get(bid)
 
-    def get_all(self):
+    def get_all(self, filter):
+        page = filter.get("page")
+
+        if page is not None:
+            return self.session.query(Director).paginate(page, per_page=12).items
+
         return self.session.query(Director).all()
 
     def create(self, director_d):
